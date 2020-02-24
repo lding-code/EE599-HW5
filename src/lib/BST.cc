@@ -248,26 +248,52 @@ std::vector<int> BST::toInorder() {
     else {
         std::stack<TreeNode*> nodeStack;
         nodeStack.push(node);
-        while (nodeStack.size() != 0 && i < 5) {
-            std::cout << "i = " << i++ << std::endl;
-            std::cout << "parent node = " << nodeStack.top()->val << std::endl;
-            node = nodeStack.top()->left;
-            std::cout << "left node -> nullptr " << std::to_string(node == nullptr) << std::endl;
-            if (node != nullptr) {
-                nodeStack.push(node);
-            }
-            else {
-                std::cout << "node == nullptr" << std::endl;
+        int i = 0;
+        while (nodeStack.size() != 0 && i < 10) {
+            if (nodeStack.top() == nullptr) {
                 nodeStack.pop();
                 orderedVec.push_back(nodeStack.top()->val);
                 node = nodeStack.top()->right;
                 nodeStack.pop();
-                nodeStack.push(node);
             }
+            else {
+                node = nodeStack.top()->left;
+            }
+            nodeStack.push(node);
         }
         return orderedVec;
     }
 }
+
+// std::vector<int> BST::toInorder() {
+//     TreeNode *node = root_;
+//     std::vector<int> orderedVec = {};
+//     int i = 0;
+//     if (empty_ == true) {
+//          return orderedVec;
+//     }
+//     else {
+//         std::stack<TreeNode*> nodeStack;
+//         nodeStack.push(node);
+//         while (nodeStack.size() != 0 && i < 5) {
+//             std::cout << "i = " << i++ << std::endl;
+//             std::cout << "parent node = " << nodeStack.top()->val << std::endl;
+//             node = nodeStack.top()->left;
+//             std::cout << "left node -> nullptr " << std::to_string(node == nullptr) << std::endl;
+//             if (node != nullptr) {
+//                 nodeStack.push(node);
+//             }
+//             else {
+//                 std::cout << "node == nullptr" << std::endl;
+//                 orderedVec.push_back(nodeStack.top()->val);
+//                 node = nodeStack.top()->right;
+//                 nodeStack.pop();
+//                 nodeStack.push(node);
+//             }
+//         }
+//         return orderedVec;
+//     }
+// }
 
 // std::vector<int> BST::toInorder() {
 //     TreeNode *node = root_;
