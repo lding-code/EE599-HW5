@@ -21,8 +21,6 @@ TEST(DepthShould1, ReturnDepth1) {
 
     BST bst {input};
 
-    std::cout << "is empty? " << bst.isEmpty() << std::endl;
-
     int actual = bst.depth();
     int expected = 4;
 
@@ -114,25 +112,25 @@ TEST(ToInorderShould1, ReturnToInorder1) {
 }
 
 // // Q2 non recursive question example
-// TEST(ToInorderShould2, ReturnToInorder2) {
-//     std::vector<int> input = {3, 20, 15, 2, 27};
+TEST(ToInorderShould2, ReturnToInorder2) {
+    std::vector<int> input = {3, 20, 15, 2, 27};
 
-//     BST bst {input};
+    BST bst {input};
 
-//     std::vector<int> actual = bst.toInorder();
-//     std::vector<int> expected = {2, 3, 15, 20, 27};
+    std::vector<int> actual = bst.toInorder();
+    std::vector<int> expected = {2, 3, 15, 20, 27};
 
-//     EXPECT_EQ(expected, actual);
-// }
+    EXPECT_EQ(expected, actual);
+}
 
 // // Q2 non recursive complicated random tree
-// TEST(ToInorderShould3, ReturnToInorder3) {
-//     std::vector<int> input = {42, 25, 41, 23, 5, 8, 96, 51, 20, 46, 3, 1, 71, 30, 24, 81, 75, 80};
+TEST(ToInorderShould3, ReturnToInorder3) {
+    std::vector<int> input = {42, 25, 41, 23, 5, 8, 96, 51, 20, 46, 3, 1, 71, 30, 24, 81, 75, 80};
 
-//     BST bst {input};
+    BST bst {input};
 
-//     std::vector<int> actual = bst.toInorder();
-//     std::vector<int> expected = {1, 3, 5, 8, 20, 23, 24, 25, 30, 41, 42, 46, 51, 71, 75, 80, 81, 96};
+    std::vector<int> actual = bst.toInorder();
+    std::vector<int> expected = {1, 3, 5, 8, 20, 23, 24, 25, 30, 41, 42, 46, 51, 71, 75, 80, 81, 96};
 
-//     EXPECT_EQ(expected, actual);
-// }
+    EXPECT_EQ(expected, actual);
+}

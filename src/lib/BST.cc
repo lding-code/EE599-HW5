@@ -115,12 +115,12 @@ bool BST::erase(int key) {
         }
 
 
-        // case 2: has one child
-        //       (O) nodeParent   (O)
-        //       /                  \ 
-        //     (X) nodeKey     o    (X) ...
-        //     /                    /
-        //    O                    O
+        // // case 2: has one child
+        // //       (O) nodeParent   (O)
+        // //       /                  \ 
+        // //     (X) nodeKey     o    (X) ...
+        // //     /                    /
+        // //    O                    O
         else if ((*nodeKey).left == nullptr || (*nodeKey).right == nullptr) {
             TreeNode *nodeChild = nodeKey;
             // if has left child
@@ -138,14 +138,14 @@ bool BST::erase(int key) {
         }
     
 
-        // case 3: has two children (left child doesn't have right child)
-        //       (O)  nodeParent               (O)
-        //       /                               \ 
-        //     (X)    nodeKey       or           (X)
-        //     / \                               / \ 
-        //    O   O                             O   O
-        //   /                                 /
-        //  O                                 O
+        // // case 3: has two children (left child doesn't have right child)
+        // //       (O)  nodeParent               (O)
+        // //       /                               \ 
+        // //     (X)    nodeKey       or           (X)
+        // //     / \                               / \ 
+        // //    O   O                             O   O
+        // //   /                                 /
+        // //  O                                 O
         else if ((*(*nodeKey).left).right == nullptr) {
             // Find the left child of the nodeKey
             TreeNode *nodeChild = (*nodeKey).left;
@@ -158,16 +158,16 @@ bool BST::erase(int key) {
         }
 
 
-        // case 4: has two children (left child has right child)
-        //       (O)  nodeParent               (O)
-        //       /                               \ 
-        //     (X)    nodeKey       or           (X)    ...
-        //     / \                               / \ 
-        //    O   O   nodeChild                 O   O
-        //   / \                               / \ 
-        //  O   O     nodeMax                 O   O
-        //                                         \ 
-        //                                          O  nodeMax
+        // // case 4: has two children (left child has right child)
+        // //       (O)  nodeParent               (O)
+        // //       /                               \ 
+        // //     (X)    nodeKey       or           (X)    ...
+        // //     / \                               / \ 
+        // //    O   O   nodeChild                 O   O
+        // //   / \                               / \ 
+        // //  O   O     nodeMax                 O   O
+        // //                                         \ 
+        // //                                          O  nodeMax
         else {
             TreeNode *nodeChild = (*nodeKey).left;
             TreeNode *nodeMax = (*nodeChild).right;
@@ -238,102 +238,31 @@ int BST::getMaxLevel(TreeNode *node, int levelCurr, int levelMax) {
     return (levelCurr > levelMax) ? levelCurr : levelMax;
 }
 
+
 std::vector<int> BST::toInorder() {
     TreeNode *node = root_;
     std::vector<int> orderedVec = {};
-    int i = 0;
     if (empty_ == true) {
-         return orderedVec;
+        return orderedVec;
     }
     else {
         std::stack<TreeNode*> nodeStack;
-        nodeStack.push(node);
-        int i = 0;
-        while (nodeStack.size() != 0 && i < 10) {
-            if (nodeStack.top() == nullptr) {
+        while (node != nullptr || !nodeStack.empty()) {
+            nodeStack.push(node);
+            if (node != nullptr) {
+                node = node->left;
+            }
+            else if (!nodeStack.empty()){
                 nodeStack.pop();
                 orderedVec.push_back(nodeStack.top()->val);
                 node = nodeStack.top()->right;
                 nodeStack.pop();
             }
-            else {
-                node = nodeStack.top()->left;
-            }
-            nodeStack.push(node);
         }
         return orderedVec;
     }
 }
 
-// std::vector<int> BST::toInorder() {
-//     TreeNode *node = root_;
-//     std::vector<int> orderedVec = {};
-//     int i = 0;
-//     if (empty_ == true) {
-//          return orderedVec;
-//     }
-//     else {
-//         std::stack<TreeNode*> nodeStack;
-//         nodeStack.push(node);
-//         while (nodeStack.size() != 0 && i < 5) {
-//             std::cout << "i = " << i++ << std::endl;
-//             std::cout << "parent node = " << nodeStack.top()->val << std::endl;
-//             node = nodeStack.top()->left;
-//             std::cout << "left node -> nullptr " << std::to_string(node == nullptr) << std::endl;
-//             if (node != nullptr) {
-//                 nodeStack.push(node);
-//             }
-//             else {
-//                 std::cout << "node == nullptr" << std::endl;
-//                 orderedVec.push_back(nodeStack.top()->val);
-//                 node = nodeStack.top()->right;
-//                 nodeStack.pop();
-//                 nodeStack.push(node);
-//             }
-//         }
-//         return orderedVec;
-//     }
-// }
-
-// std::vector<int> BST::toInorder() {
-//     TreeNode *node = root_;
-//     std::vector<int> orderedVec = {};
-//     if (empty_ == true) {
-//          return orderedVec;
-//     }
-//     else {
-//         std::stack<TreeNode*> nodeStack;
-//         nodeStack.push(node);
-    
-//         int i = 0;    
-
-//         while (nodeStack.size() != 0 && i < 5) {
-//             std::cout << "i = " << i++ << "--------------------------" << std::endl;
-//             node = nodeStack.top()->left;
-//             if (nodeStack.top()->left != nullptr) {
-//                 std::cout << "left non-empty" << std::endl;
-//                 std::cout << "before change top val = " << nodeStack.top()->val << std::endl;
-//                 nodeStack.push(nodeStack.top()->left);
-//                 std::cout << "after change top val = " << nodeStack.top()->val << std::endl;
-//             }
-//             else {
-//                 std::cout << "left empty" << std::endl;
-//                 std::cout << "push " << nodeStack.top()->val << " to vector" << std::endl;
-//                 orderedVec.push_back(nodeStack.top()->val);
-//                 if (nodeStack.top()->right != nullptr) {
-//                     std::cout << "right non-empty" << std::endl;
-//                     nodeTemp = nodeStack.top()->right;
-//                     nodeStack.pop();
-//                     nodeStack.push(nodeTemp);
-//                 }
-//                 else {
-//                     nodeStack.pop();
-//                 }
-//             }
-//         }
-//         return orderedVec;
-//     }
-// }
 
 std::vector<int> BST::toInorderRec() {
     std::vector<int> orderedVec = {};
